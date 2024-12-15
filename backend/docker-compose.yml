@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    command: ["--bind_ip_all", "--replSet", "rs0"]
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo --quiet) -eq 1
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
+  mongo-setup:
+    image: mongo:latest
+    depends_on:
+      - mongo
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["bash", "/scripts/mongo-setup.sh"]
+
+volumes:
+  mongodb_data:

@@ -1,0 +1,1 @@
+process.env.CRYPTO_API_KEY = "Test"

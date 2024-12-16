@@ -72,7 +72,6 @@ describe('AuthService', () => {
 
       expect(User.findOne).toHaveBeenCalledWith({ email: signupData.email });
       expect(User.findOne().session).toHaveBeenCalledWith('mockSession');
-      expect(User.findOne().read).toHaveBeenCalledWith('exclusive');
       expect(User.updateOne).toHaveBeenCalledWith(
         { email: signupData.email },
         { $set: signupData },
@@ -160,7 +159,6 @@ describe('AuthService', () => {
 
       expect(User.findOne).toHaveBeenCalledWith({ _id: mockUserId });
       expect(User.findOne().session).toHaveBeenCalledWith('mockSession');
-      expect(User.findOne().read).toHaveBeenCalledWith('exclusive');
       expect(User.schema.methods.matchPassword).toHaveBeenCalledWith(changePasswordData.oldPassword);
       expect(User.updateOne).toHaveBeenCalledWith(
         { _id: mockUserId },

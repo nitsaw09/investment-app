@@ -33,7 +33,7 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use(express.json({ limit: '10kb' })); 
+app.use(express.json({ limit: '100kb' })); 
 app.use(globalLimiter); 
 
 // Version 1 API Routes with specific rate limits

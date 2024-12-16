@@ -30,7 +30,7 @@ export const DashboardPage: React.FC = () => {
 
   const handleCoinChange = async (event: SelectChangeEvent<string>) => {
     setChartCoinFilter(event.target.value as string);
-    const cryptoPriceChart = await cryptoApi.getHistoricalData(chartCoinFilter.toUpperCase());
+    const cryptoPriceChart = await cryptoApi.getHistoricalData(event.target.value.toUpperCase());
     setCryptoPriceChart(cryptoPriceChart);
   }
 

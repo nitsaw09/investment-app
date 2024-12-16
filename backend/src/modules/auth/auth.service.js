@@ -16,7 +16,6 @@ class AuthService {
       // Find user with exclusive lock to prevent race conditions
       const userExists = await User.findOne({ email })
         .session(session)
-        .read('exclusive')
         .lean();
 
       if (userExists) {
@@ -71,7 +70,6 @@ class AuthService {
       const userExists = await User.findOne({ _id: userId })
         .select("password")
         .session(session)
-        .read('exclusive')
         .lean();
 
       if (!userExists) {
